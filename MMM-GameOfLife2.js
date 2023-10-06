@@ -167,8 +167,7 @@ Module.register("MMM-GameOfLife2", {
           let x = i * resolution;
           let y = j * resolution;
           pFive.rect(x, y, resolution - 1, resolution - 1);
-        } else if (grid[i][j] > 0) {
-          console.log(aliveColorCode+componentToHex(pFive.floor(255/lifetime*grid[i][j])));
+        }// else if (grid[i][j] > 0) {
        //   let color = pFive.color(aliveColorCode+componentToHex(pFive.floor(255/lifetime*grid[i][j])));
        //   pFive.fill(aliveColor);
        //   pFive.stroke(aliveColor);
@@ -176,13 +175,13 @@ Module.register("MMM-GameOfLife2", {
        //   let x = i * resolution;
        //   let y = j * resolution;
        //   pFive.rect(x, y, resolution - 1, resolution - 1);
-        }
+       // }
       }
 
-      function componentToHex(c) {
-        var hex = c.toString(16);
-        return hex.length == 1 ? "0" + hex : hex;
-      }
+     // function componentToHex(c) {
+     //   var hex = c.toString(16);
+    //    return hex.length == 1 ? "0" + hex : hex;
+     // }
 
       function computeNextGeneration(currentGen) {
         let nextGen = makeGrid(rows, cols);

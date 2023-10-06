@@ -6,7 +6,7 @@ Module.register("MMM-GameOfLife2", {
   defaults: {
     name: "MMM-GameOfLife2",
 
-    desiredFrameRate: 1,
+    desiredFrameRate: 10,
     resolution: 10,
     canvasWidth: 300,
     canvasHeight: 300,

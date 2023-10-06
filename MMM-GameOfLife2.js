@@ -165,13 +165,35 @@ Module.register("MMM-GameOfLife2", {
           let y = j * resolution;
           pFive.rect(x, y, resolution - 1, resolution - 1);
         } else if (grid[i][j] > 0) {
-          pFive.fill(50, 50, 50);
-          pFive.stroke(50, 50, 50);
+          pFive.fill(combineColors(aliveColor, notAliveColor, 0.5));
+          pFive.stroke(combineColors(aliveColor, notAliveColor, 0.5));
 
           let x = i * resolution;
           let y = j * resolution;
           pFive.rect(x, y, resolution - 1, resolution - 1);
         }
+      }
+
+      function combineColors(col1, col2, fac) {
+        let [c1,c2] = [col1,col2].map(x=>convert(x));
+        let cm = [];
+        c1.forEach((c,i) => cm.push(parseInt((c1[i]+c2[i])/2)))
+        return rgbToHex(cm)
+      }
+      
+      function componentToHex(c) {
+        var hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+      }
+
+      // this function takes an array of 3 RGB integer values and converts this array into a CSS color, like this: #AAAAA
+      function rgbToHex([r, g, b]) {
+        return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+      }
+
+      // the regex is separating the value into groups of 2 characters, these characters being letters from 'a' to 'f' and digits, that is to say hexadecimal numbers. 
+      function convert(color) {
+        return /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color.value).map(x=>parseInt('0x'+x)).slice(1, 4);
       }
 
 
@@ -195,7 +217,9 @@ Module.register("MMM-GameOfLife2", {
         if (currentState === 0 && shouldBirth(aliveNeighbors)) {
           nextGen[i][j] = 1;
         } else if (currentState === lifetime && shouldDie(aliveNeighbors)) {
-          nextGen[i][j] = 0;
+          nextGen[i][j] = lifetime-1;
+        } else if (currentState > 0) {
+          nextGen[i][j] -= 1;
         } else {
           nextGen[i][j] = currentState;
         }

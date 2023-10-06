@@ -9,7 +9,10 @@ Module.register("MMM-GameOfLife2", {
     canvasWidth: 300,
     canvasHeight: 300,
     notAliveColorCode: "#000",
-    aliveColorCode: "#aaa"
+    aliveColorCode: "#aaa",
+    surviveNeighbors: "23",
+    birthNeighbors: "3",
+    lifetime: 1,
   },
 
 
@@ -33,16 +36,11 @@ Module.register("MMM-GameOfLife2", {
   },
 
   notificationReceived: function(notification, payload, sender) {
-    Log.log(notification);
     if (notification === "DOM_OBJECTS_CREATED") {
       Log.info("DOM objects are created. Starting P5 …");
 
       let sketch = this.makeSketch(this.config);
       new p5(sketch, "gameOfLife2Wrapper");
-    }
-    if (notification === "GOL_RESET") {
-      Log.log("Received");
-      this.shouldReset = true;
     }
   },
 
@@ -79,6 +77,9 @@ Module.register("MMM-GameOfLife2", {
       let notAliveColorCode = conf.notAliveColorCode;
       let aliveColorCode = conf.aliveColorCode;
       let notAliveColor = getNotAliveColor(notAliveColorCode);
+      let survive = conf.surviveNeighbors;
+      let birth = conf.birthNeighbors;
+      let lifetime = conf.lifetime;
 
       /* computed parameters */
       let rows = canvasWidth / resolution;
@@ -103,8 +104,6 @@ Module.register("MMM-GameOfLife2", {
         let nextGenGrid = computeNextGeneration(currentGenGrid);
 
         if (representingSameState(nextGenGrid, currentGenGrid) || representingSameState(nextGenGrid, lastGenGrid)) {
-          fillGridRandomly(currentGenGrid);
-        } else if (this.shouldReset) {
           fillGridRandomly(currentGenGrid);
         } else {
           lastGenGrid = currentGenGrid;
@@ -186,13 +185,23 @@ Module.register("MMM-GameOfLife2", {
         let currentState = currentGen[i][j];
         let aliveNeighbors = countAliveNeighbors(currentGen, i, j);
 
-        if (currentState === 0 && aliveNeighbors === 3) {
+        if (currentState === 0 && shouldBirth(aliveNeighbors)) {
           nextGen[i][j] = 1;
-        } else if (currentState === 1 && (aliveNeighbors < 2 || aliveNeighbors > 3)) {
+        } else if (currentState === 1 && shouldDie(aliveNeighbors)) {
           nextGen[i][j] = 0;
         } else {
           nextGen[i][j] = currentState;
         }
+      }
+
+
+      function shouldBirth(neighbors) {
+        return birth.match(neighbors);
+      }
+
+
+      function shouldDie(neighbors) {
+        return !survive.match(neighbors);
       }
 
 

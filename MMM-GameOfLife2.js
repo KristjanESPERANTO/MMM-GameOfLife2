@@ -33,7 +33,7 @@ Module.register("MMM-GameOfLife2", {
   },
 
   notificationReceived: function(notification, payload, sender) {
-    Log.info(notification);
+    Log.log(notification);
     if (notification === "DOM_OBJECTS_CREATED") {
       Log.info("DOM objects are created. Starting P5 …");
 

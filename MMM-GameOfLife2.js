@@ -201,8 +201,6 @@ Module.register("MMM-GameOfLife2", {
       function computeNextGenCell(i, j, currentGen, nextGen) {
         let currentState = currentGen[i][j];
         let aliveNeighbors = countAliveNeighbors(currentGen, i, j);
-        console.log(aliveNeighbors);
-        console.log(shouldDie(aliveNeighbors));
 
         if (currentState === 0 && shouldBirth(aliveNeighbors)) {
           nextGen[i][j] = 1;
@@ -228,8 +226,9 @@ Module.register("MMM-GameOfLife2", {
             }
           }
         }
-
-        count -= grid[x][y];
+        if (grid[x][y] === lifetime) {
+          count -= grid[x][y];
+        }
 
         return count;
       }

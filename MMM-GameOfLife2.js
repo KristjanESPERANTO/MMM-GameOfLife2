@@ -8,7 +8,7 @@ Module.register("MMM-GameOfLife2", {
     resolution: 10,
     canvasWidth: 300,
     canvasHeight: 300,
-    textSize: 32,
+    textSize: 12,
     notAliveColorCode: "#000000",
     aliveColorCode: "#ffffff",
     surviveNeighbors: "23",

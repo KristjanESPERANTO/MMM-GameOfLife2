@@ -139,7 +139,7 @@ Module.register("MMM-GameOfLife2", {
       function fillGridRandomly(grid) {
         for (let i = 0; i < grid.length; i++) {
           for (let j = 0; j < grid[i].length; j++) {
-            grid[i][j] = pFive.floor(pFive.random(2));
+            grid[i][j] = pFive.floor(pFive.random(2))*lifetime;
           }
         }
       }
@@ -157,9 +157,16 @@ Module.register("MMM-GameOfLife2", {
       function drawCell(grid, i, j) {
         let aliveColor = pFive.color(aliveColorCode);
 
-        if (grid[i][j] === 1) {
+        if (grid[i][j] === lifetime) {
           pFive.fill(aliveColor);
           pFive.stroke(aliveColor);
+
+          let x = i * resolution;
+          let y = j * resolution;
+          pFive.rect(x, y, resolution - 1, resolution - 1);
+        } else if (grid[i][j] > 0) {
+          pFive.fill(50, 50, 50);
+          pFive.stroke(50, 50, 50);
 
           let x = i * resolution;
           let y = j * resolution;
@@ -187,7 +194,7 @@ Module.register("MMM-GameOfLife2", {
 
         if (currentState === 0 && shouldBirth(aliveNeighbors)) {
           nextGen[i][j] = 1;
-        } else if (currentState === 1 && shouldDie(aliveNeighbors)) {
+        } else if (currentState === lifetime && shouldDie(aliveNeighbors)) {
           nextGen[i][j] = 0;
         } else {
           nextGen[i][j] = currentState;
@@ -212,8 +219,9 @@ Module.register("MMM-GameOfLife2", {
           for (let j = -1; j < 2; j++) {
             let row = (x + i + rows) % rows;
             let col = (y + j + cols) % cols;
-
-            count += grid[row][col];
+            if (grid[row][col] === lifetime) {
+              count += 1;
+            }
           }
         }
 

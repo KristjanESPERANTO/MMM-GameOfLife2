@@ -218,10 +218,10 @@ Module.register("MMM-GameOfLife2", {
       function drawValues() {
         pFive.fill("#ffffff");
         pFive.textSize(textSize);
-        pFive.text("FPS: "+desiredFrameRate, 0, 0);
-        pFive.text("S: "+survive, 0, 20);
-        pFive.text("B: "+birth, 0, 40);
-        pFive.text("Life: "+lifetime, 0, 60);
+        pFive.text("FPS: "+desiredFrameRate, 0, canvasHeight);
+        pFive.text("S: "+survive, 20, canvasHeight);
+        pFive.text("B: "+birth, 40, canvasHeight);
+        pFive.text("Life: "+lifetime, 60, canvasHeight);
       }
       
       function drawCell(grid, i, j) {

@@ -154,14 +154,9 @@ Module.register("MMM-GameOfLife2", {
       }
 
       
-      function componentToHex(c) {
-        var hex = c.toString(16);
-        return hex.length == 1 ? "0" + hex : hex;
-      }
-
-      // this function takes an array of 3 RGB integer values and converts this array into a CSS color, like this: #AAAAA
-      function rgbToHex([r, g, b]) {
-        return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+      function rgbToHex(r, g, b) {
+        const components = [r, g, b].map((component) => component.toString(16).padStart(2, '0'));
+        return '#' + components.join('');
       }
 
       function combineColors(alive, dead, fac) {
@@ -203,8 +198,11 @@ Module.register("MMM-GameOfLife2", {
           let y = j * resolution;
           pFive.rect(x, y, resolution - 1, resolution - 1);
         } else if (grid[i][j] > 0) {
-          pFive.fill(combineColors("#ffffff", "#000000", 1/lifetime*grid[i][j]));
-          pFive.stroke(combineColors("#ffffff", "#000000", 1/lifetime*grid[i][j]));
+          console.log(aliveColor);
+          console.log(notAliveColor);
+          console.log(combineColors("#ffffff", "#000000", 0.5));
+          pFive.fill(combineColors(aliveColor, notAliveColor, 1/lifetime*grid[i][j]));
+          pFive.stroke(combineColors(aliveColor, notAliveColor, 1/lifetime*grid[i][j]));
 
           let x = i * resolution;
           let y = j * resolution;

@@ -118,8 +118,9 @@ Module.register("MMM-GameOfLife2", {
       /* user definable parameters */
       let desiredFrameRate = conf.desiredFrameRate;
       let resolution = conf.resolution;
-      let canvasWidth = conf.canvasWidth;
-      let canvasHeight = conf.canvasHeight;
+      let canvasWidth = conf.canvasWidth-conf.textSize-3;
+      let canvasHeight = conf.canvasHeight-conf.textSize-3;
+      let canvasHeightR = conf.canvasHeight;
       let notAliveColorCode = conf.notAliveColorCode;
       let aliveColorCode = conf.aliveColorCode;
       let notAliveColor = getNotAliveColor(notAliveColorCode);
@@ -135,7 +136,7 @@ Module.register("MMM-GameOfLife2", {
 
       pFive.setup = function() {
         pFive.frameRate(desiredFrameRate);
-        pFive.createCanvas(canvasWidth, canvasHeight);
+        pFive.createCanvas(canvasWidth, canvasHeightR);
 
         lastGenGrid = makeGrid(rows, cols);
         lastGenGrid2 = makeGrid(rows, cols);
@@ -219,10 +220,10 @@ Module.register("MMM-GameOfLife2", {
         pFive.fill("#ffffff");
         pFive.textSize(textSize);
         console.log(canvasHeight+textSize);
-        pFive.text("FPS: "+desiredFrameRate, 0, canvasHeight+textSize);
-        pFive.text("S: "+survive, 90, canvasHeight+textSize);
-        pFive.text("B: "+birth, 180, canvasHeight+textSize);
-        pFive.text("Life: "+lifetime, 270, canvasHeight+textSize);
+        pFive.text("FPS: "+desiredFrameRate, 0, canvasHeight+textSize+3);
+        pFive.text("S: "+survive, 90, canvasHeight+textSize+3);
+        pFive.text("B: "+birth, 180, canvasHeight+textSize+3);
+        pFive.text("Life: "+lifetime, 270, canvasHeight+textSize+3);
       }
       
       function drawCell(grid, i, j) {

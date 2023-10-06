@@ -74,6 +74,9 @@ Module.register("MMM-GameOfLife2", {
     return function(pFive) {
       let currentGenGrid;
       let lastGenGrid;
+      let lastGenGrid2;
+      let lastGenGrid3;
+      let lastGenGrid4;
 
       /* user definable parameters */
       let desiredFrameRate = conf.desiredFrameRate;
@@ -97,6 +100,9 @@ Module.register("MMM-GameOfLife2", {
         pFive.createCanvas(canvasWidth, canvasHeight);
 
         lastGenGrid = makeGrid(rows, cols);
+        lastGenGrid2 = makeGrid(rows, cols);
+        lastGenGrid3 = makeGrid(rows, cols);
+        lastGenGrid4 = makeGrid(rows, cols);
         currentGenGrid = makeGrid(rows, cols);
         fillGridRandomly(currentGenGrid);
       };
@@ -109,9 +115,12 @@ Module.register("MMM-GameOfLife2", {
         drawGrid(currentGenGrid);
         let nextGenGrid = computeNextGeneration(currentGenGrid);
 
-        if (representingSameState(nextGenGrid, currentGenGrid) || representingSameState(nextGenGrid, lastGenGrid)) {
+        if (representingSameState(nextGenGrid, currentGenGrid) || representingSameState(nextGenGrid, lastGenGrid) || representingSameState(nextGenGrid, lastGenGrid2) || representingSameState(nextGenGrid, lastGenGrid3) || representingSameState(nextGenGrid, lastGenGrid4)) {
           fillGridRandomly(currentGenGrid);
         } else {
+          lastGenGrid4 = lastGenGrid3;
+          lastGenGrid3 = lastGenGrid2;
+          lastGenGrid2 = lastGenGrid;
           lastGenGrid = currentGenGrid;
           currentGenGrid = nextGenGrid;
         }
@@ -172,7 +181,7 @@ Module.register("MMM-GameOfLife2", {
         } else if (grid[i][j] > 0) {
           let color = pFive.color(aliveColorCode+componentToHex(pFive.floor(255/lifetime*grid[i][j])));
           pFive.fill(color);
-          pFive.stroke(pFive.color(0, 0, 0, 0));
+          pFive.stroke(color);
 
           let x = i * resolution;
           let y = j * resolution;

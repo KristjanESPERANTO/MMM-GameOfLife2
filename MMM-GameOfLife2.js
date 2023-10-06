@@ -234,12 +234,12 @@ Module.register("MMM-GameOfLife2", {
 
 
       function shouldBirth(neighbors) {
-        return birth.match(neighbors);
+        return birth.match(neighbors) !== null;
       }
 
 
       function shouldDie(neighbors) {
-        return !survive.match(neighbors);
+        return survive.match(neighbors) === null;
       }
 
 

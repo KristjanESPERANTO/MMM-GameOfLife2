@@ -106,10 +106,11 @@ Module.register("MMM-GameOfLife2", {
 
         if (representingSameState(nextGenGrid, currentGenGrid) || representingSameState(nextGenGrid, lastGenGrid)) {
           fillGridRandomly(currentGenGrid);
-        } else if (this.shouldReset) {
-          this.shouldReset = false;
-          fillGridRandomly(currentGenGrid);
-        } else {
+        }// else if (this.shouldReset) {
+          //this.shouldReset = false;
+      //    fillGridRandomly(currentGenGrid);
+       // }
+        else {
           lastGenGrid = currentGenGrid;
           currentGenGrid = nextGenGrid;
         }

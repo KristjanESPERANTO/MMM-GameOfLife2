@@ -8,6 +8,7 @@ Module.register("MMM-GameOfLife2", {
     resolution: 10,
     canvasWidth: 300,
     canvasHeight: 300,
+    textSize: 32,
     notAliveColorCode: "#000000",
     aliveColorCode: "#ffffff",
     surviveNeighbors: "23",
@@ -53,6 +54,28 @@ Module.register("MMM-GameOfLife2", {
     if (notification === "GOL_FPS") {
       this.config.desiredFrameRate += payload.amount;
       Log.info("FPS set to "+this.config.desiredFrameRate);
+    }
+    if (notification === "GOL_LIFETIME") {
+      this.config.lifetime += payload.amount;
+      Log.info("Lifetime set to "+this.config.lifetime);
+    }
+    if (notification === "GOL_SURVIVE") {
+      if (this.config.surviveNeighbors.match(payload.number)) {
+        this.config.surviveNeighbors = this.config.surviveNeighbors.replace(payload.number, "");
+      }
+      else {
+        this.config.surviveNeighbors = this.config.surviveNeighbors+payload.number;
+      }
+      Log.info("Survive set to "+this.config.surviveNeighbors);
+    }
+    if (notification === "GOL_BIRTH") {
+      if (this.config.birthNeighbors.match(payload.number)) {
+        this.config.birthNeighbors = this.config.birthNeighbors.replace(payload.number, "");
+      }
+      else {
+        this.config.birthNeighbors = this.config.birthNeighbors+payload.number;
+      }
+      Log.info("Birth set to "+this.config.birthNeighbors);
     }
   },
 
@@ -103,6 +126,7 @@ Module.register("MMM-GameOfLife2", {
       let survive = conf.surviveNeighbors;
       let birth = conf.birthNeighbors;
       let lifetime = conf.lifetime;
+      let textSize = conf.textSize;
 
       /* computed parameters */
       let rows = canvasWidth / resolution;
@@ -132,6 +156,7 @@ Module.register("MMM-GameOfLife2", {
 
         drawGrid(currentGenGrid);
         let nextGenGrid = computeNextGeneration(currentGenGrid);
+        drawValues();
 
         if (representingSameState(nextGenGrid, currentGenGrid) || representingSameState(nextGenGrid, lastGenGrid) || representingSameState(nextGenGrid, lastGenGrid2) || representingSameState(nextGenGrid, lastGenGrid3) || representingSameState(nextGenGrid, lastGenGrid4) || representingSameState(nextGenGrid, lastGenGrid5) || representingSameState(nextGenGrid, lastGenGrid6) || representingSameState(nextGenGrid, lastGenGrid7) || representingSameState(nextGenGrid, lastGenGrid8)) {
           fillGridRandomly(currentGenGrid);
@@ -188,6 +213,15 @@ Module.register("MMM-GameOfLife2", {
             drawCell(grid, i, j);
           }
         }
+      }
+
+      function drawValues() {
+        pFive.fill("#ffffff");
+        pFive.textSize(textSize);
+        pFive.text("FPS: "+desiredFrameRate, 0, 0);
+        pFive.text("S: "+survive, 20, 0);
+        pFive.text("B: "+birth, 40, 0);
+        pFive.text("Life: "+lifetime, 0, 60);
       }
       
       function drawCell(grid, i, j) {

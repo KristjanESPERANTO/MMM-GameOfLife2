@@ -1,4 +1,4 @@
-//"use strict";
+
 
 Module.register("MMM-GameOfLife2", {
 

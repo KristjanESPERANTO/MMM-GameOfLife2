@@ -1,5 +1,3 @@
-var shouldReset = false;
-
 Module.register("MMM-GameOfLife2", {
 
   // Default module config.
@@ -35,6 +33,7 @@ Module.register("MMM-GameOfLife2", {
   },
 
   notificationReceived: function(notification, payload, sender) {
+    Log.info(notification);
     if (notification === "DOM_OBJECTS_CREATED") {
       Log.info("DOM objects are created. Starting P5 …");
 
@@ -43,7 +42,7 @@ Module.register("MMM-GameOfLife2", {
     }
     if (notification === "GOL_RESET") {
       Log.info("Received");
-      var shouldReset = true;
+      this.shouldReset = true;
     }
   },
 
@@ -105,7 +104,7 @@ Module.register("MMM-GameOfLife2", {
 
         if (representingSameState(nextGenGrid, currentGenGrid) || representingSameState(nextGenGrid, lastGenGrid)) {
           fillGridRandomly(currentGenGrid);
-        } else if (shouldReset) {
+        } else if (this.shouldReset) {
           fillGridRandomly(currentGenGrid);
         } else {
           lastGenGrid = currentGenGrid;

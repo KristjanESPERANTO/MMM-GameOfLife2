@@ -1,10 +1,10 @@
 {
-  "name": "MMM-GameOfLife",
+  "name": "MMM-GameOfLife2",
   "version": "0.0.1",
-  "description": "A Game of Life module for MagicMirror 2.",
+  "description": "A Game of Life module for MagicMirror 2, updated to reset on notification.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/raywo/MMM-GameOfLife"
+    "url": "https://github.com/Entropy159/MMM-GameOfLife2"
   },
   "keywords": [
     "magic mirror",
@@ -14,18 +14,18 @@
     "module"
   ],
   "author": {
-    "name": "raywo",
-    "email": "ray@skillbird.de",
-    "url": "https://github.com/raywo"
+    "name": "Entropy159",
+    "email": "theminecraftgamer159@gmail.com",
+    "url": "https://github.com/Entropy159"
   },
   "contributors": [
-    "https://github.com/raywo/MMM-GameOfLife/graphs/contributors"
+    "https://github.com/Entropy159/MMM-GameOfLife2/graphs/contributors"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/raywo/MMM-GameOfLife/issues"
+    "url": "https://github.com/Entropy159/MMM-GameOfLife2/issues"
   },
-  "homepage": "https://github.com/raywo/MMM-GameOfLife",
+  "homepage": "https://github.com/Entropy159/MMM-GameOfLife2",
   "engines": {
     "node": ">=7"
   },

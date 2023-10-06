@@ -230,7 +230,6 @@ Module.register("MMM-GameOfLife2", {
         if (grid[x][y] === lifetime) {
           count -= 1;
         }
-              console.log(count);
 
         return count;
       }

@@ -202,11 +202,11 @@ Module.register("MMM-GameOfLife2", {
         let currentState = currentGen[i][j];
         let aliveNeighbors = countAliveNeighbors(currentGen, i, j);
 
-        if (currentState === 0 && shouldBirth(aliveNeighbors)) {
+        if (currentState === 0 && (birth.match(aliveNeighbors) !== null)) {
           nextGen[i][j] = lifetime;
-        } else if (currentState === lifetime && shouldDie(aliveNeighbors)) {
+        } else if (currentState === lifetime && survive.match(aliveNeighbors) === null) {
           nextGen[i][j] = lifetime-1;
-        } else if (currentState > 0) {
+        } else if (currentState > 0 && currentState < lifetime) {
           nextGen[i][j] = currentState-1;
         } else {
           nextGen[i][j] = currentState;
@@ -221,7 +221,6 @@ Module.register("MMM-GameOfLife2", {
           for (let j = -1; j < 2; j++) {
             let row = (x + i + rows) % rows;
             let col = (y + j + cols) % cols;
-            console.log(grid[row][col]);
             if (grid[row][col] === lifetime) {
               count += 1;
             }
@@ -232,16 +231,6 @@ Module.register("MMM-GameOfLife2", {
         }
 
         return count;
-      }
-
-
-      function shouldBirth(neighbors) {
-        return birth.match(neighbors) !== null;
-      }
-
-
-      function shouldDie(neighbors) {
-        return survive.match(neighbors) === null;
       }
 
 

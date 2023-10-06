@@ -169,21 +169,21 @@ Module.register("MMM-GameOfLife2", {
           let x = i * resolution;
           let y = j * resolution;
           pFive.rect(x, y, resolution - 1, resolution - 1);
-        }// else if (grid[i][j] > 0) {
-       //   let color = pFive.color(aliveColorCode+componentToHex(pFive.floor(255/lifetime*grid[i][j])));
-       //   pFive.fill(aliveColor);
-       //   pFive.stroke(aliveColor);
+        } else if (grid[i][j] > 0) {
+          let color = pFive.color(aliveColorCode+componentToHex(pFive.floor(255/lifetime*grid[i][j])));
+          pFive.fill(color);
+          pFive.stroke(color);
 
-       //   let x = i * resolution;
-       //   let y = j * resolution;
-       //   pFive.rect(x, y, resolution - 1, resolution - 1);
-       // }
+          let x = i * resolution;
+          let y = j * resolution;
+          pFive.rect(x, y, resolution - 1, resolution - 1);
+        }
       }
 
-     // function componentToHex(c) {
-     //   var hex = c.toString(16);
-    //    return hex.length == 1 ? "0" + hex : hex;
-     // }
+      function componentToHex(c) {
+        var hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+      }
 
       function computeNextGeneration(currentGen) {
         let nextGen = makeGrid(rows, cols);
@@ -207,7 +207,7 @@ Module.register("MMM-GameOfLife2", {
         } else if (currentState === lifetime && shouldDie(aliveNeighbors)) {
           nextGen[i][j] = lifetime-1;
         } else if (currentState > 0) {
-          nextGen[i][j] -= 1;
+          nextGen[i][j] = currentState-1;
         } else {
           nextGen[i][j] = currentState;
         }

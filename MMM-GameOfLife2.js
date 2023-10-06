@@ -34,7 +34,6 @@ Module.register("MMM-GameOfLife2", {
     ];
   },
 
-  var shouldReset = false;
   notificationReceived: function(notification, payload, sender) {
     if (notification === "DOM_OBJECTS_CREATED") {
       Log.info("DOM objects are created. Starting P5 …");

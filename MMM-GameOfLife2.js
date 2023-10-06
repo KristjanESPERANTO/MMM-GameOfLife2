@@ -1,4 +1,4 @@
-
+var shouldReset = false;
 
 Module.register("MMM-GameOfLife2", {
 
@@ -103,6 +103,8 @@ Module.register("MMM-GameOfLife2", {
         let nextGenGrid = computeNextGeneration(currentGenGrid);
 
         if (representingSameState(nextGenGrid, currentGenGrid) || representingSameState(nextGenGrid, lastGenGrid)) {
+          fillGridRandomly(currentGenGrid);
+        } else if (shouldReset) {
           fillGridRandomly(currentGenGrid);
         } else {
           lastGenGrid = currentGenGrid;

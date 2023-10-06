@@ -218,6 +218,7 @@ Module.register("MMM-GameOfLife2", {
       function drawValues() {
         pFive.fill("#ffffff");
         pFive.textSize(textSize);
+        console.log(canvasHeight+textSize);
         pFive.text("FPS: "+desiredFrameRate, 0, canvasHeight+textSize);
         pFive.text("S: "+survive, 90, canvasHeight+textSize);
         pFive.text("B: "+birth, 180, canvasHeight+textSize);

@@ -165,8 +165,8 @@ Module.register("MMM-GameOfLife2", {
           let y = j * resolution;
           pFive.rect(x, y, resolution - 1, resolution - 1);
         } else if (grid[i][j] > 0) {
-          pFive.fill(combineColors(aliveColor, notAliveColor, 0.5));
-          pFive.stroke(combineColors(aliveColor, notAliveColor, 0.5));
+          pFive.fill(combineColors(aliveColor, notAliveColor, 1/lifetime*grid[i][j]));
+          pFive.stroke(combineColors(aliveColor, notAliveColor, 1/lifetime*grid[i][j]));
 
           let x = i * resolution;
           let y = j * resolution;
@@ -174,11 +174,32 @@ Module.register("MMM-GameOfLife2", {
         }
       }
 
-      function combineColors(col1, col2, fac) {
-        let [c1,c2] = [col1,col2].map(x=>convert(x));
-        let cm = [];
-        c1.forEach((c,i) => cm.push(parseInt((c1[i]+c2[i])/2)))
-        return rgbToHex(cm)
+      function combineColors(alive, dead, fac) {
+        var rA = parseInt(alive.substring(0,2), 16);
+        var gA = parseInt(alive.substring(2,4), 16);
+        var bA = parseInt(alive.substring(4,6), 16);
+        var rD = parseInt(dead.substring(0,2), 16);
+        var gD = parseInt(dead.substring(2,4), 16);
+        var bD = parseInt(dead.substring(4,6), 16);
+        if (rA < rD) {
+          var temp = rA;
+          rA = rD;
+          rD = temp;
+        }
+        if (gA < gD) {
+          var temp = gA;
+          gA = gD;
+          gD = temp;
+        }
+        if (bA < bD) {
+          var temp = bA;
+          bA = bD;
+          bD = temp;
+        }
+        var r = (rA-rD)*fac+rD;
+        var g = (gA-gD)*fac+gD;
+        var b = (bA-bD)*fac+bD;
+        return rgbToHex(r, g, b);
       }
       
       function componentToHex(c) {
@@ -189,11 +210,6 @@ Module.register("MMM-GameOfLife2", {
       // this function takes an array of 3 RGB integer values and converts this array into a CSS color, like this: #AAAAA
       function rgbToHex([r, g, b]) {
         return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-      }
-
-      // the regex is separating the value into groups of 2 characters, these characters being letters from 'a' to 'f' and digits, that is to say hexadecimal numbers. 
-      function convert(color) {
-        return /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color.value).map(x=>parseInt('0x'+x)).slice(1, 4);
       }
 
 

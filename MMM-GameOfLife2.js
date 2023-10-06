@@ -1,5 +1,3 @@
-"use strict";
-
 Module.register("MMM-GameOfLife2", {
 
   // Default module config.
@@ -41,6 +39,14 @@ Module.register("MMM-GameOfLife2", {
     if (notification === "DOM_OBJECTS_CREATED") {
       Log.info("DOM objects are created. Starting P5 …");
 
+      let sketch = this.makeSketch(this.config);
+      new p5(sketch, "gameOfLife2Wrapper");
+    }
+    if (notification === "GOL_RESET") {
+      Log.info("Resetting GOL...");
+
+      let old = document.getElementById("defaultCanvas0");
+      old.remove();
       let sketch = this.makeSketch(this.config);
       new p5(sketch, "gameOfLife2Wrapper");
     }

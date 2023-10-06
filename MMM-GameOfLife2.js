@@ -77,6 +77,10 @@ Module.register("MMM-GameOfLife2", {
       let lastGenGrid2;
       let lastGenGrid3;
       let lastGenGrid4;
+      let lastGenGrid5;
+      let lastGenGrid6;
+      let lastGenGrid7;
+      let lastGenGrid8;
 
       /* user definable parameters */
       let desiredFrameRate = conf.desiredFrameRate;
@@ -103,6 +107,10 @@ Module.register("MMM-GameOfLife2", {
         lastGenGrid2 = makeGrid(rows, cols);
         lastGenGrid3 = makeGrid(rows, cols);
         lastGenGrid4 = makeGrid(rows, cols);
+        lastGenGrid5 = makeGrid(rows, cols);
+        lastGenGrid6 = makeGrid(rows, cols);
+        lastGenGrid7 = makeGrid(rows, cols);
+        lastGenGrid8 = makeGrid(rows, cols);
         currentGenGrid = makeGrid(rows, cols);
         fillGridRandomly(currentGenGrid);
       };
@@ -115,9 +123,13 @@ Module.register("MMM-GameOfLife2", {
         drawGrid(currentGenGrid);
         let nextGenGrid = computeNextGeneration(currentGenGrid);
 
-        if (representingSameState(nextGenGrid, currentGenGrid) || representingSameState(nextGenGrid, lastGenGrid) || representingSameState(nextGenGrid, lastGenGrid2) || representingSameState(nextGenGrid, lastGenGrid3) || representingSameState(nextGenGrid, lastGenGrid4)) {
+        if (representingSameState(nextGenGrid, currentGenGrid) || representingSameState(nextGenGrid, lastGenGrid) || representingSameState(nextGenGrid, lastGenGrid2) || representingSameState(nextGenGrid, lastGenGrid3) || representingSameState(nextGenGrid, lastGenGrid4) || representingSameState(nextGenGrid, lastGenGrid5) || representingSameState(nextGenGrid, lastGenGrid6) || representingSameState(nextGenGrid, lastGenGrid7) || representingSameState(nextGenGrid, lastGenGrid8)) {
           fillGridRandomly(currentGenGrid);
         } else {
+          lastGenGrid8 = lastGenGrid7;
+          lastGenGrid7 = lastGenGrid6;
+          lastGenGrid6 = lastGenGrid5;
+          lastGenGrid5 = lastGenGrid4;
           lastGenGrid4 = lastGenGrid3;
           lastGenGrid3 = lastGenGrid2;
           lastGenGrid2 = lastGenGrid;

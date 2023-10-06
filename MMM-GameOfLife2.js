@@ -203,7 +203,7 @@ Module.register("MMM-GameOfLife2", {
         let aliveNeighbors = countAliveNeighbors(currentGen, i, j);
 
         if (currentState === 0 && shouldBirth(aliveNeighbors)) {
-          nextGen[i][j] = 1;
+          nextGen[i][j] = lifetime;
         } else if (currentState === lifetime && shouldDie(aliveNeighbors)) {
           nextGen[i][j] = lifetime-1;
         } else if (currentState > 0) {
@@ -227,7 +227,7 @@ Module.register("MMM-GameOfLife2", {
           }
         }
         if (grid[x][y] === lifetime) {
-          count -= grid[x][y];
+          count -= 1;
         }
 
         return count;

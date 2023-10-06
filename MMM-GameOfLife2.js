@@ -50,6 +50,10 @@ Module.register("MMM-GameOfLife2", {
       let sketch = this.makeSketch(this.config);
       new p5(sketch, "gameOfLife2Wrapper");
     }
+    if (notification === "GOL_FPS") {
+      this.config.desiredFrameRate += payload.amount;
+      Log.info("FPS set to "+this.config.desiredFrameRate);
+    }
   },
 
 

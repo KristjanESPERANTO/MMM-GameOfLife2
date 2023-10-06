@@ -1,10 +1,12 @@
-# MMM-GameOfLife
+# MMM-GameOfLife2
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/35bd2bb135cce603299d/maintainability)](https://codeclimate.com/github/raywo/MMM-GameOfLife/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/35bd2bb135cce603299d/test_coverage)](https://codeclimate.com/github/raywo/MMM-GameOfLife/test_coverage)
 [![Known Vulnerabilities](https://snyk.io/test/github/raywo/mmm-GameOfLife/badge.svg?targetFile=package.json)](https://snyk.io/test/github/raywo/mmm-GameOfLife?targetFile=package.json)
 [![dependency status](https://david-dm.org/raywo/MMM-GameOfLife.svg)](https://david-dm.org/raywo/MMM-GameOfLife)
 [![chat on gitter](https://badges.gitter.im/raywo.svg)](https://gitter.im/raywo)
+
+This is an edit of the original module. The only change is I've added a notification (GOL_RESET) to reset the game, for use if it gets stuck.
 
 MMM-GameOfLife is probably one of the most useful modules for [MagicMirror<sup>2</sup>](https://github.com/MichMich/MagicMirror) project by [Michael Teeuw](https://github.com/MichMich). It displays a game of life with continously developing generations.
 

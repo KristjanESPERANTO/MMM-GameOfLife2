@@ -221,6 +221,7 @@ Module.register("MMM-GameOfLife2", {
           for (let j = -1; j < 2; j++) {
             let row = (x + i + rows) % rows;
             let col = (y + j + cols) % cols;
+            console.log(grid[row][col]);
             if (grid[row][col] === lifetime) {
               count += 1;
             }
@@ -229,6 +230,7 @@ Module.register("MMM-GameOfLife2", {
         if (grid[x][y] === lifetime) {
           count -= 1;
         }
+              console.log(count);
 
         return count;
       }

@@ -34,7 +34,7 @@ Module.register("MMM-GameOfLife", {
     ];
   },
 
-  let shouldReset;
+  this.shouldReset = false
   notificationReceived: function(notification, payload, sender) {
     if (notification === "DOM_OBJECTS_CREATED") {
       Log.info("DOM objects are created. Starting P5 …");
@@ -105,6 +105,9 @@ Module.register("MMM-GameOfLife", {
         let nextGenGrid = computeNextGeneration(currentGenGrid);
 
         if (representingSameState(nextGenGrid, currentGenGrid) || representingSameState(nextGenGrid, lastGenGrid)) {
+          fillGridRandomly(currentGenGrid);
+        } else if (this.shouldReset) {
+          this.shouldReset = false;
           fillGridRandomly(currentGenGrid);
         } else {
           lastGenGrid = currentGenGrid;

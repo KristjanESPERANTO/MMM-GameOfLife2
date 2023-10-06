@@ -219,8 +219,8 @@ Module.register("MMM-GameOfLife2", {
         pFive.fill("#ffffff");
         pFive.textSize(textSize);
         pFive.text("FPS: "+desiredFrameRate, 0, 0);
-        pFive.text("S: "+survive, 20, 0);
-        pFive.text("B: "+birth, 40, 0);
+        pFive.text("S: "+survive, 0, 20);
+        pFive.text("B: "+birth, 0, 40);
         pFive.text("Life: "+lifetime, 0, 60);
       }
       

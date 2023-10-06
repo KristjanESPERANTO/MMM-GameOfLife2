@@ -153,64 +153,8 @@ Module.register("MMM-GameOfLife2", {
         }
       }
       
-      function rgbToHex(r, g, b) {
-        r = r.toString(16);
-        g = g.toString(16);
-        b = b.toString(16);
-
-        if (r.length == 1)
-          r = "0" + r;
-        if (g.length == 1)
-          g = "0" + g;
-        if (b.length == 1)
-          b = "0" + b;
-
-        return "#" + r + g + b;
-      }
-
-      function hexToRGB(hex) {
-        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        return result ? {
-          r: parseInt(result[1], 16),
-          g: parseInt(result[2], 16),
-          b: parseInt(result[3], 16)
-        } : null;
-      }
-
-      function combineColors(alive, dead, fac) {
-        var rA = hexToRGB(alive).r;
-        var gA = hexToRGB(alive).g;
-        var bA = hexToRGB(alive).b;
-        var rD = hexToRGB(dead).r;
-        var gD = hexToRGB(dead).g;
-        var bD = hexToRGB(dead).b;
-        if (rA < rD) {
-          var temp = rA;
-          rA = rD;
-          rD = temp;
-        }
-        if (gA < gD) {
-          var temp = gA;
-          gA = gD;
-          gD = temp;
-        }
-        if (bA < bD) {
-          var temp = bA;
-          bA = bD;
-          bD = temp;
-        }
-        var r = (rA-rD)*fac+rD;
-        var g = (gA-gD)*fac+gD;
-        var b = (bA-bD)*fac+bD;
-        return rgbToHex(r, g, b);
-      }
-      
       function drawCell(grid, i, j) {
         let aliveColor = pFive.color(aliveColorCode);
-        let deadColorCode = notAliveColorCode;
-        if (deadColorCode === "transparent") {
-          deadColorCode = "#000000";
-        }
 
         if (grid[i][j] === lifetime) {
           pFive.fill(aliveColor);
@@ -220,7 +164,7 @@ Module.register("MMM-GameOfLife2", {
           let y = j * resolution;
           pFive.rect(x, y, resolution - 1, resolution - 1);
         } else if (grid[i][j] > 0) {
-          let color = combineColors(aliveColorCode, deadColorCode, 1/lifetime*grid[i][j]);
+          let color = pFive.color(aliveColorCode+componentToHex(pFive.floor(255/lifetime*grid[i][j])));
           pFive.fill(aliveColor);
           pFive.stroke(aliveColor);
 
@@ -228,6 +172,11 @@ Module.register("MMM-GameOfLife2", {
           let y = j * resolution;
           pFive.rect(x, y, resolution - 1, resolution - 1);
         }
+      }
+
+      function componentToHex(c) {
+        var hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
       }
 
       function computeNextGeneration(currentGen) {

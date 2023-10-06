@@ -166,6 +166,12 @@ Module.register("MMM-GameOfLife2", {
         var rD = parseInt(dead.substring(0,2), 16);
         var gD = parseInt(dead.substring(2,4), 16);
         var bD = parseInt(dead.substring(4,6), 16);
+        console.log(rA);
+        console.log(gA);
+        console.log(bA);
+        console.log(rD);
+        console.log(gD);
+        console.log(bD);
         if (rA < rD) {
           var temp = rA;
           rA = rD;
@@ -189,6 +195,10 @@ Module.register("MMM-GameOfLife2", {
       
       function drawCell(grid, i, j) {
         let aliveColor = pFive.color(aliveColorCode);
+        let deadColorCode = notAliveColorCode;
+        if (deadColorCode === "transparent") {
+          deadColorCode = "#000000";
+        }
 
         if (grid[i][j] === lifetime) {
           pFive.fill(aliveColor);
@@ -199,9 +209,9 @@ Module.register("MMM-GameOfLife2", {
           pFive.rect(x, y, resolution - 1, resolution - 1);
         } else if (grid[i][j] > 0) {
           console.log(aliveColorCode);
-          console.log(notAliveColorCode);
+          console.log(deadColorCode);
           console.log(combineColors("#ffffff", "#000000", 0.5));
-          let color = combineColors(aliveColorCode, notAliveColorCode, 1/lifetime*grid[i][j]);
+          let color = combineColors(aliveColorCode, deadColorCode, 1/lifetime*grid[i][j]);
           pFive.fill(pFive.color(color));
           pFive.stroke(pFive.color(color));
 

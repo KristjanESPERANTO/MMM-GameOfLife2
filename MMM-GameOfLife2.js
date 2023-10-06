@@ -166,7 +166,7 @@ Module.register("MMM-GameOfLife2", {
           pFive.rect(x, y, resolution - 1, resolution - 1);
         } else if (grid[i][j] > 0) {
           pFive.fill(combineColors(aliveColor, notAliveColor, 1/lifetime*grid[i][j]));
-          pFive.stroke(combineColors(aliveColor, notAliveColor, 1/lifetime*grid[i][j]));
+          pFive.stroke(combineColors(aliveColor, notAliveColor, 0.5));
 
           let x = i * resolution;
           let y = j * resolution;

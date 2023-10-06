@@ -34,11 +34,15 @@ Module.register("MMM-GameOfLife", {
     ];
   },
 
-
+  let shouldReset;
   notificationReceived: function(notification, payload, sender) {
     if (notification === "DOM_OBJECTS_CREATED") {
       Log.info("DOM objects are created. Starting P5 …");
 
+      let sketch = this.makeSketch(this.config);
+      new p5(sketch, "gameOfLifeWrapper");
+    }
+    if (notification === "GOL_RESET") {
       let sketch = this.makeSketch(this.config);
       new p5(sketch, "gameOfLifeWrapper");
     }

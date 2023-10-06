@@ -8,8 +8,8 @@ Module.register("MMM-GameOfLife2", {
     resolution: 10,
     canvasWidth: 300,
     canvasHeight: 300,
-    notAliveColorCode: "#000",
-    aliveColorCode: "#aaa",
+    notAliveColorCode: "#000000",
+    aliveColorCode: "#aaaaaa",
     surviveNeighbors: "23",
     birthNeighbors: "3",
     lifetime: 1,
@@ -203,8 +203,8 @@ Module.register("MMM-GameOfLife2", {
           let y = j * resolution;
           pFive.rect(x, y, resolution - 1, resolution - 1);
         } else if (grid[i][j] > 0) {
-          pFive.fill(combineColors(aliveColor, notAliveColor, 1/lifetime*grid[i][j]));
-          pFive.stroke(combineColors(aliveColor, notAliveColor, 1/lifetime*grid[i][j]));
+          pFive.fill(combineColors("#ffffff", "#000000", 1/lifetime*grid[i][j]));
+          pFive.stroke(combineColors("#ffffff", "#000000", 1/lifetime*grid[i][j]));
 
           let x = i * resolution;
           let y = j * resolution;

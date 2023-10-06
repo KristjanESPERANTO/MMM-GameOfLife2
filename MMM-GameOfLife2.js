@@ -221,10 +221,11 @@ Module.register("MMM-GameOfLife2", {
           let y = j * resolution;
           pFive.rect(x, y, resolution - 1, resolution - 1);
         } else if (grid[i][j] > 0) {
-          console.log(combineColors(aliveColorCode, deadColorCode, 1/lifetime*grid[i][j]));
           let color = combineColors(aliveColorCode, deadColorCode, 1/lifetime*grid[i][j]);
-          pFive.fill(pFive.color(color));
-          pFive.stroke(pFive.color(color));
+          console.log(color);
+          console.log(pFive.color(color));
+          pFive.fill(pFive.color(aliveColorCode));
+          pFive.stroke(pFive.color(deadColorCode));
 
           let x = i * resolution;
           let y = j * resolution;

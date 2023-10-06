@@ -44,8 +44,6 @@ Module.register("MMM-GameOfLife2", {
       new p5(sketch, "gameOfLife2Wrapper");
     }
     if (notification === "GOL_RESET") {
-      Log.info("Resetting GOL...");
-
       let old = document.getElementById("defaultCanvas0");
       old.remove();
       let sketch = this.makeSketch(this.config);
@@ -53,7 +51,6 @@ Module.register("MMM-GameOfLife2", {
     }
     if (notification === "GOL_FPS") {
       this.config.desiredFrameRate += payload.amount;
-      Log.info("FPS set to "+this.config.desiredFrameRate);
 
       let old = document.getElementById("defaultCanvas0");
       old.remove();
@@ -62,7 +59,6 @@ Module.register("MMM-GameOfLife2", {
     }
     if (notification === "GOL_LIFETIME") {
       this.config.lifetime += payload.amount;
-      Log.info("Lifetime set to "+this.config.lifetime);
 
       let old = document.getElementById("defaultCanvas0");
       old.remove();
@@ -76,7 +72,6 @@ Module.register("MMM-GameOfLife2", {
       else {
         this.config.surviveNeighbors = this.config.surviveNeighbors+payload.number;
       }
-      Log.info("Survive set to "+this.config.surviveNeighbors);
 
       let old = document.getElementById("defaultCanvas0");
       old.remove();
@@ -90,7 +85,6 @@ Module.register("MMM-GameOfLife2", {
       else {
         this.config.birthNeighbors = this.config.birthNeighbors+payload.number;
       }
-      Log.info("Birth set to "+this.config.birthNeighbors);
 
       let old = document.getElementById("defaultCanvas0");
       old.remove();
@@ -237,12 +231,15 @@ Module.register("MMM-GameOfLife2", {
       }
 
       function drawValues() {
+        let sortString = (stringg) => {
+          return stringg.split("").sort().join("");
+        };
+        
         pFive.fill("#ffffff");
         pFive.textSize(textSize);
-        console.log(canvasHeight+textSize);
         pFive.text("FPS: "+desiredFrameRate, 0, canvasHeight+textSize+3);
-        pFive.text("S: "+survive, 90, canvasHeight+textSize+3);
-        pFive.text("B: "+birth, 180, canvasHeight+textSize+3);
+        pFive.text("S: "+sortString(survive), 90, canvasHeight+textSize+3);
+        pFive.text("B: "+sortString(birth), 180, canvasHeight+textSize+3);
         pFive.text("Life: "+lifetime, 270, canvasHeight+textSize+3);
       }
       

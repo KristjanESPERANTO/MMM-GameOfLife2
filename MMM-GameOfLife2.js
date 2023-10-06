@@ -202,7 +202,7 @@ Module.register("MMM-GameOfLife2", {
         let currentState = currentGen[i][j];
         let aliveNeighbors = countAliveNeighbors(currentGen, i, j);
         console.log(aliveNeighbors);
-        console.log(shouldBirth(aliveNeighbors));
+        console.log(shouldDie(aliveNeighbors));
 
         if (currentState === 0 && shouldBirth(aliveNeighbors)) {
           nextGen[i][j] = 1;

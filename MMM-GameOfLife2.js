@@ -4,7 +4,7 @@ Module.register("MMM-GameOfLife2", {
 
   // Default module config.
   defaults: {
-    name: "MMM-GameOfLife",
+    name: "MMM-GameOfLife2",
 
     desiredFrameRate: 1,
     resolution: 10,

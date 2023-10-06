@@ -34,7 +34,7 @@ Module.register("MMM-GameOfLife2", {
     ];
   },
 
-  //this.shouldReset = false
+  var shouldReset = false;
   notificationReceived: function(notification, payload, sender) {
     if (notification === "DOM_OBJECTS_CREATED") {
       Log.info("DOM objects are created. Starting P5 …");
@@ -43,8 +43,7 @@ Module.register("MMM-GameOfLife2", {
       new p5(sketch, "gameOfLife2Wrapper");
     }
     if (notification === "GOL_RESET") {
-      let sketch = this.makeSketch(this.config);
-      new p5(sketch, "gameOfLife2Wrapper");
+      var shouldReset = true;
     }
   },
 
@@ -106,11 +105,9 @@ Module.register("MMM-GameOfLife2", {
 
         if (representingSameState(nextGenGrid, currentGenGrid) || representingSameState(nextGenGrid, lastGenGrid)) {
           fillGridRandomly(currentGenGrid);
-        }// else if (this.shouldReset) {
-          //this.shouldReset = false;
-      //    fillGridRandomly(currentGenGrid);
-       // }
-        else {
+        } else if (shouldReset) {
+          fillGridRandomly(currentGenGrid);
+        } else {
           lastGenGrid = currentGenGrid;
           currentGenGrid = nextGenGrid;
         }

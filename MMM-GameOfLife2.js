@@ -1,6 +1,6 @@
 "use strict";
 
-Module.register("MMM-GameOfLife", {
+Module.register("MMM-GameOfLife2", {
 
   // Default module config.
   defaults: {
@@ -23,7 +23,7 @@ Module.register("MMM-GameOfLife", {
 
   getDom: function() {
     let wrapper = document.createElement("div");
-    wrapper.id = "gameOfLifeWrapper";
+    wrapper.id = "gameOfLife2Wrapper";
 
     return wrapper;
   },
@@ -40,11 +40,11 @@ Module.register("MMM-GameOfLife", {
       Log.info("DOM objects are created. Starting P5 …");
 
       let sketch = this.makeSketch(this.config);
-      new p5(sketch, "gameOfLifeWrapper");
+      new p5(sketch, "gameOfLife2Wrapper");
     }
     if (notification === "GOL_RESET") {
       let sketch = this.makeSketch(this.config);
-      new p5(sketch, "gameOfLifeWrapper");
+      new p5(sketch, "gameOfLife2Wrapper");
     }
   },
 

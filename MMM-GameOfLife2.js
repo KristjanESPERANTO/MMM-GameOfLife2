@@ -54,10 +54,20 @@ Module.register("MMM-GameOfLife2", {
     if (notification === "GOL_FPS") {
       this.config.desiredFrameRate += payload.amount;
       Log.info("FPS set to "+this.config.desiredFrameRate);
+
+      let old = document.getElementById("defaultCanvas0");
+      old.remove();
+      let sketch = this.makeSketch(this.config);
+      new p5(sketch, "gameOfLife2Wrapper");
     }
     if (notification === "GOL_LIFETIME") {
       this.config.lifetime += payload.amount;
       Log.info("Lifetime set to "+this.config.lifetime);
+
+      let old = document.getElementById("defaultCanvas0");
+      old.remove();
+      let sketch = this.makeSketch(this.config);
+      new p5(sketch, "gameOfLife2Wrapper");
     }
     if (notification === "GOL_SURVIVE") {
       if (this.config.surviveNeighbors.match(payload.number)) {
@@ -67,6 +77,11 @@ Module.register("MMM-GameOfLife2", {
         this.config.surviveNeighbors = this.config.surviveNeighbors+payload.number;
       }
       Log.info("Survive set to "+this.config.surviveNeighbors);
+
+      let old = document.getElementById("defaultCanvas0");
+      old.remove();
+      let sketch = this.makeSketch(this.config);
+      new p5(sketch, "gameOfLife2Wrapper");
     }
     if (notification === "GOL_BIRTH") {
       if (this.config.birthNeighbors.match(payload.number)) {
@@ -76,6 +91,11 @@ Module.register("MMM-GameOfLife2", {
         this.config.birthNeighbors = this.config.birthNeighbors+payload.number;
       }
       Log.info("Birth set to "+this.config.birthNeighbors);
+
+      let old = document.getElementById("defaultCanvas0");
+      old.remove();
+      let sketch = this.makeSketch(this.config);
+      new p5(sketch, "gameOfLife2Wrapper");
     }
   },
 

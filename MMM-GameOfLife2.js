@@ -152,7 +152,6 @@ Module.register("MMM-GameOfLife2", {
           }
         }
       }
-
       
       function rgbToHex(r, g, b) {
         r = r.toString(16);
@@ -222,10 +221,8 @@ Module.register("MMM-GameOfLife2", {
           pFive.rect(x, y, resolution - 1, resolution - 1);
         } else if (grid[i][j] > 0) {
           let color = combineColors(aliveColorCode, deadColorCode, 1/lifetime*grid[i][j]);
-          console.log(color);
-          console.log(pFive.color(color));
-          pFive.fill(pFive.color(aliveColorCode));
-          pFive.stroke(pFive.color(deadColorCode));
+          pFive.fill(aliveColor);
+          pFive.stroke(aliveColor);
 
           let x = i * resolution;
           let y = j * resolution;

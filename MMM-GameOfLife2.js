@@ -207,10 +207,10 @@ Module.register("MMM-GameOfLife2", {
       
       function drawCell(grid, i, j) {
         let aliveColor = pFive.color(aliveColorCode);
-        //let deadColorCode = notAliveColorCode;
-        //if (deadColorCode === "transparent") {
-        //  deadColorCode = "#000000";
-        //}
+        let deadColorCode = notAliveColorCode;
+        if (deadColorCode === "transparent") {
+          deadColorCode = "#000000";
+        }
 
         if (grid[i][j] === lifetime) {
           pFive.fill(aliveColor);
@@ -220,7 +220,7 @@ Module.register("MMM-GameOfLife2", {
           let y = j * resolution;
           pFive.rect(x, y, resolution - 1, resolution - 1);
         } else if (grid[i][j] > 0) {
-          //let color = combineColors(aliveColorCode, deadColorCode, 1/lifetime*grid[i][j]);
+          let color = combineColors(aliveColorCode, deadColorCode, 1/lifetime*grid[i][j]);
           pFive.fill(aliveColor);
           pFive.stroke(aliveColor);
 

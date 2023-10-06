@@ -153,25 +153,15 @@ Module.register("MMM-GameOfLife2", {
         }
       }
 
+      
+      function componentToHex(c) {
+        var hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+      }
 
-      function drawCell(grid, i, j) {
-        let aliveColor = pFive.color(aliveColorCode);
-
-        if (grid[i][j] === lifetime) {
-          pFive.fill(aliveColor);
-          pFive.stroke(aliveColor);
-
-          let x = i * resolution;
-          let y = j * resolution;
-          pFive.rect(x, y, resolution - 1, resolution - 1);
-        } else if (grid[i][j] > 0) {
-          pFive.fill(combineColors(aliveColor, notAliveColor, 1/lifetime*grid[i][j]));
-          pFive.stroke(combineColors(aliveColor, notAliveColor, 0.5));
-
-          let x = i * resolution;
-          let y = j * resolution;
-          pFive.rect(x, y, resolution - 1, resolution - 1);
-        }
+      // this function takes an array of 3 RGB integer values and converts this array into a CSS color, like this: #AAAAA
+      function rgbToHex([r, g, b]) {
+        return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
       }
 
       function combineColors(alive, dead, fac) {
@@ -202,16 +192,25 @@ Module.register("MMM-GameOfLife2", {
         return rgbToHex(r, g, b);
       }
       
-      function componentToHex(c) {
-        var hex = c.toString(16);
-        return hex.length == 1 ? "0" + hex : hex;
-      }
+      function drawCell(grid, i, j) {
+        let aliveColor = pFive.color(aliveColorCode);
 
-      // this function takes an array of 3 RGB integer values and converts this array into a CSS color, like this: #AAAAA
-      function rgbToHex([r, g, b]) {
-        return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-      }
+        if (grid[i][j] === lifetime) {
+          pFive.fill(aliveColor);
+          pFive.stroke(aliveColor);
 
+          let x = i * resolution;
+          let y = j * resolution;
+          pFive.rect(x, y, resolution - 1, resolution - 1);
+        } else if (grid[i][j] > 0) {
+          pFive.fill(combineColors(aliveColor, notAliveColor, 1/lifetime*grid[i][j]));
+          pFive.stroke(combineColors(aliveColor, notAliveColor, 1/lifetime*grid[i][j]));
+
+          let x = i * resolution;
+          let y = j * resolution;
+          pFive.rect(x, y, resolution - 1, resolution - 1);
+        }
+      }
 
       function computeNextGeneration(currentGen) {
         let nextGen = makeGrid(rows, cols);

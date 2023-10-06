@@ -175,22 +175,12 @@ Module.register("MMM-GameOfLife2", {
           b = "0x" + h[5] + h[6];
         }
   
-        return "rgb("+ +r + "," + +g + "," + +b + ")";
+        return [r, g, b];
       }
 
       function combineColors(alive, dead, fac) {
-        var rA = parseInt(alive.substring(0,2), 16);
-        var gA = parseInt(alive.substring(2,4), 16);
-        var bA = parseInt(alive.substring(4,6), 16);
-        var rD = parseInt(dead.substring(0,2), 16);
-        var gD = parseInt(dead.substring(2,4), 16);
-        var bD = parseInt(dead.substring(4,6), 16);
-        console.log(rA);
-        console.log(gA);
-        console.log(bA);
-        console.log(rD);
-        console.log(gD);
-        console.log(bD);
+        var [rA, gA, bA] = hexToRGB(alive);
+        var [rD, gD, bD] = hexToRGB(dead);
         if (rA < rD) {
           var temp = rA;
           rA = rD;
@@ -227,7 +217,6 @@ Module.register("MMM-GameOfLife2", {
           let y = j * resolution;
           pFive.rect(x, y, resolution - 1, resolution - 1);
         } else if (grid[i][j] > 0) {
-          console.log(hexToRGB("#000000"))
           console.log(combineColors("#ffffff", "#000000", 0.5));
           let color = combineColors(aliveColorCode, deadColorCode, 1/lifetime*grid[i][j]);
           pFive.fill(pFive.color(color));

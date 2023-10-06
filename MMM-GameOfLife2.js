@@ -206,6 +206,9 @@ Module.register("MMM-GameOfLife2", {
           bA = bD;
           bD = temp;
         }
+        console.log(rA);
+        console.log(gA);
+        console.log(bA);
         var r = (rA-rD)*fac+rD;
         var g = (gA-gD)*fac+gD;
         var b = (bA-bD)*fac+bD;

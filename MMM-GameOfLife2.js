@@ -198,11 +198,12 @@ Module.register("MMM-GameOfLife2", {
           let y = j * resolution;
           pFive.rect(x, y, resolution - 1, resolution - 1);
         } else if (grid[i][j] > 0) {
-          console.log(aliveColor);
-          console.log(notAliveColor);
+          console.log(aliveColorCode);
+          console.log(notAliveColorCode);
           console.log(combineColors("#ffffff", "#000000", 0.5));
-          pFive.fill(combineColors(aliveColor, notAliveColor, 1/lifetime*grid[i][j]));
-          pFive.stroke(combineColors(aliveColor, notAliveColor, 1/lifetime*grid[i][j]));
+          let color = combineColors(aliveColorCode, notAliveColorCode, 1/lifetime*grid[i][j]);
+          pFive.fill(pFive.color(color));
+          pFive.stroke(pFive.color(color));
 
           let x = i * resolution;
           let y = j * resolution;

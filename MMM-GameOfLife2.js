@@ -1,3 +1,5 @@
+"use strict";
+
 Module.register("MMM-GameOfLife2", {
 
   // Default module config.
@@ -212,16 +214,6 @@ Module.register("MMM-GameOfLife2", {
       }
 
 
-      function shouldBirth(neighbors) {
-        return birth.match(neighbors);
-      }
-
-
-      function shouldDie(neighbors) {
-        return !survive.match(neighbors);
-      }
-
-
       function countAliveNeighbors(grid, x, y) {
         let count = 0;
 
@@ -238,6 +230,16 @@ Module.register("MMM-GameOfLife2", {
         count -= grid[x][y];
 
         return count;
+      }
+
+
+      function shouldBirth(neighbors) {
+        return birth.match(neighbors);
+      }
+
+
+      function shouldDie(neighbors) {
+        return !survive.match(neighbors);
       }
 
 

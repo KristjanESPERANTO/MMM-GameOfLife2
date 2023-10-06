@@ -41,7 +41,7 @@ Module.register("MMM-GameOfLife2", {
       new p5(sketch, "gameOfLife2Wrapper");
     }
     if (notification === "GOL_RESET") {
-      Log.info("Received");
+      Log.log("Received");
       this.shouldReset = true;
     }
   },

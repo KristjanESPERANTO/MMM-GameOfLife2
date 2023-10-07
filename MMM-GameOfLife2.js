@@ -16,6 +16,7 @@ Module.register("MMM-GameOfLife2", {
     lifetime: 1,
   },
 
+  pfive: null,
 
   start: function() {
     Log.info("Starting module: " + this.name);
@@ -40,8 +41,8 @@ Module.register("MMM-GameOfLife2", {
     if (notification === "DOM_OBJECTS_CREATED") {
       Log.info("DOM objects are created. Starting P5 …");
 
-      var sketch = this.makeSketch(this.config);
-      var pfive = new p5(sketch, "gameOfLife2Wrapper");
+      let sketch = this.makeSketch(this.config);
+      this.pfive = new p5(sketch, "gameOfLife2Wrapper");
     }
     if (notification === "GOL_RESET") {
       this.resetSketch();
@@ -80,8 +81,8 @@ Module.register("MMM-GameOfLife2", {
   resetSketch: function() {
     if (pfive !== null) {
       pfive.remove();
-      var sketch = this.makeSketch(this.config);
-      var pfive = new p5(sketch, "gameOfLife2Wrapper");
+      let sketch = this.makeSketch(this.config);
+      this.pfive = new p5(sketch, "gameOfLife2Wrapper");
     }
   },
 

@@ -79,8 +79,9 @@ Module.register("MMM-GameOfLife2", {
   },
 
   resetSketch: function() {
-    if (pfive !== null) {
-      pfive.remove();
+    console.log(this.pfive);
+    if (this.pfive !== null) {
+      this.pfive.remove();
       let sketch = this.makeSketch(this.config);
       this.pfive = new p5(sketch, "gameOfLife2Wrapper");
     }

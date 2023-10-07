@@ -83,7 +83,7 @@ Module.register("MMM-GameOfLife2", {
       var sketch = this.makeSketch(this.config);
       var pfive = new p5(sketch, "gameOfLife2Wrapper");
     }
-  }
+  },,,,,
 
 
   sanitizeConfig: function() {

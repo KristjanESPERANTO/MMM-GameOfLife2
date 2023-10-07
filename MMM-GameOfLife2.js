@@ -40,30 +40,20 @@ Module.register("MMM-GameOfLife2", {
     if (notification === "DOM_OBJECTS_CREATED") {
       Log.info("DOM objects are created. Starting P5 …");
 
-      let sketch = this.makeSketch(this.config);
-      new p5(sketch, "gameOfLife2Wrapper");
+      var sketch = this.makeSketch(this.config);
+      var pfive = new p5(sketch, "gameOfLife2Wrapper");
     }
     if (notification === "GOL_RESET") {
-      let old = document.getElementById("defaultCanvas0");
-      old.remove();
-      let sketch = this.makeSketch(this.config);
-      new p5(sketch, "gameOfLife2Wrapper");
+      this.resetSketch();
     }
     if (notification === "GOL_FPS") {
       this.config.desiredFrameRate += payload.amount;
 
-      let old = document.getElementById("defaultCanvas0");
-      old.remove();
-      let sketch = this.makeSketch(this.config);
-      new p5(sketch, "gameOfLife2Wrapper");
+      this.resetSketch();
     }
     if (notification === "GOL_LIFETIME") {
       this.config.lifetime += payload.amount;
-
-      let old = document.getElementById("defaultCanvas0");
-      old.remove();
-      let sketch = this.makeSketch(this.config);
-      new p5(sketch, "gameOfLife2Wrapper");
+      this.resetSketch();
     }
     if (notification === "GOL_SURVIVE") {
       if (this.config.surviveNeighbors.match(payload.number)) {
@@ -73,10 +63,7 @@ Module.register("MMM-GameOfLife2", {
         this.config.surviveNeighbors = this.config.surviveNeighbors+payload.number;
       }
 
-      let old = document.getElementById("defaultCanvas0");
-      old.remove();
-      let sketch = this.makeSketch(this.config);
-      new p5(sketch, "gameOfLife2Wrapper");
+      this.resetSketch();
     }
     if (notification === "GOL_BIRTH") {
       if (this.config.birthNeighbors.match(payload.number)) {
@@ -86,12 +73,17 @@ Module.register("MMM-GameOfLife2", {
         this.config.birthNeighbors = this.config.birthNeighbors+payload.number;
       }
 
-      let old = document.getElementById("defaultCanvas0");
-      old.remove();
-      let sketch = this.makeSketch(this.config);
-      new p5(sketch, "gameOfLife2Wrapper");
+      this.resetSketch();
     }
   },
+
+  resetSketch: function() {
+    if (pfive !== null) {
+      pfive.remove();
+      var sketch = this.makeSketch(this.config);
+      var pfive = new p5(sketch, "gameOfLife2Wrapper");
+    }
+  }
 
 
   sanitizeConfig: function() {

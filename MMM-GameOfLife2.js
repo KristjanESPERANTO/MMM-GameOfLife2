@@ -5,6 +5,7 @@ Module.register("MMM-GameOfLife2", {
     name: "MMM-GameOfLife2",
 
     desiredFrameRate: 10,
+    frameRate: 10,
     resolution: 10,
     canvasWidth: 300,
     canvasHeight: 300,
@@ -12,8 +13,11 @@ Module.register("MMM-GameOfLife2", {
     notAliveColorCode: "#000000",
     aliveColorCode: "#ffffff",
     surviveNeighbors: "23",
+    survive: "23",
     birthNeighbors: "3",
+    birth: "3",
     lifetime: 1,
+    lifetimeAmount: 1,
   },
 
   pfive: null,
@@ -48,40 +52,40 @@ Module.register("MMM-GameOfLife2", {
       this.resetSketch();
     }
     if (notification === "GOL_FPS") {
-      this.config.desiredFrameRate += payload.amount;
+      this.config.frameRate += payload.amount;
 
       this.resetSketch();
     }
     if (notification === "GOL_LIFETIME") {
-      this.config.lifetime += payload.amount;
+      this.config.lifetimeAmount += payload.amount;
       this.resetSketch();
     }
     if (notification === "GOL_SURVIVE") {
-      if (this.config.surviveNeighbors.match(payload.number)) {
-        this.config.surviveNeighbors = this.config.surviveNeighbors.replace(payload.number, "");
+      if (this.config.survive.match(payload.number)) {
+        this.config.survive = this.config.survive.replace(payload.number, "");
       }
       else {
-        this.config.surviveNeighbors = this.config.surviveNeighbors+payload.number;
+        this.config.survive = this.config.survive+payload.number;
       }
 
       this.resetSketch();
     }
     if (notification === "GOL_BIRTH") {
-      if (this.config.birthNeighbors.match(payload.number)) {
-        this.config.birthNeighbors = this.config.birthNeighbors.replace(payload.number, "");
+      if (this.config.birth.match(payload.number)) {
+        this.config.birth = this.config.birth.replace(payload.number, "");
       }
       else {
-        this.config.birthNeighbors = this.config.birthNeighbors+payload.number;
+        this.config.birth = this.config.birth+payload.number;
       }
 
       this.resetSketch();
     }
     if (notification === "GOL_RESET_SB") {
       if (payload.type === "Birth") {
-        this.config.birthNeighbors = "3";
+        this.config.birth = this.config.birthNeighbors;
       }
       else {
-        this.config.surviveNeighbors = "23";
+        this.config.survive = this.config.surviveNeighbors;
       }
 
       this.resetSketch();
@@ -90,12 +94,9 @@ Module.register("MMM-GameOfLife2", {
 
   resetSketch: function() {
     if (this.pfive !== null) {
-      //this.pfive.remove();
-      //let sketch = this.makeSketch(this.config);
-      //this.pfive = new p5(sketch, "gameOfLife2Wrapper");
-      this.pfive.birth = this.config.birthNeighbors;
-      this.pfive.survive = this.config.surviveNeighbors;
-      this.pfive.lifetime = this.config.lifetime;
+      this.pfive.remove();
+      let sketch = this.makeSketch(this.config);
+      this.pfive = new p5(sketch, "gameOfLife2Wrapper");
     }
   },
 
@@ -120,11 +121,20 @@ Module.register("MMM-GameOfLife2", {
     if (this.config.lifetime < 1) {
       this.config.lifetime = 1;
     }
+
+    this.config.frameRate = this.config.desiredFrameRate;
+    this.config.lifetimeAmount = this.config.lifetime;
+    this.config.survive = this.config.surviveNeighbors;
+    this.config.birth = this.config.birthNeighbors;
   },
 
 
   makeSketch: function(conf) {
     return function(pFive) {
+      let sortString = (stringg) => {
+        return stringg.split("").sort().join("");
+      };
+      
       let currentGenGrid;
       let lastGenGrid;
       let lastGenGrid2;
@@ -136,7 +146,7 @@ Module.register("MMM-GameOfLife2", {
       let lastGenGrid8;
 
       /* user definable parameters */
-      let desiredFrameRate = conf.desiredFrameRate;
+      let desiredFrameRate = conf.frameRate;
       let resolution = conf.resolution;
       let canvasWidth = conf.canvasWidth-conf.textSize-3;
       let canvasHeight = conf.canvasHeight-conf.textSize-3;
@@ -144,9 +154,9 @@ Module.register("MMM-GameOfLife2", {
       let notAliveColorCode = conf.notAliveColorCode;
       let aliveColorCode = conf.aliveColorCode;
       let notAliveColor = getNotAliveColor(notAliveColorCode);
-      let survive = conf.surviveNeighbors;
-      let birth = conf.birthNeighbors;
-      let lifetime = conf.lifetime;
+      let survive = sortString(conf.survive);
+      let birth = sortString(conf.birth);
+      let lifetime = conf.lifetimeAmount;
       let textSize = conf.textSize;
 
       /* computed parameters */
@@ -237,15 +247,11 @@ Module.register("MMM-GameOfLife2", {
       }
 
       function drawValues() {
-        let sortString = (stringg) => {
-          return stringg.split("").sort().join("");
-        };
-        
         pFive.fill("#ffffff");
         pFive.textSize(textSize);
         pFive.text("FPS: "+desiredFrameRate, 0, canvasHeight+textSize+3);
-        pFive.text("S: "+sortString(survive), 90, canvasHeight+textSize+3);
-        pFive.text("B: "+sortString(birth), 180, canvasHeight+textSize+3);
+        pFive.text("S: "+survive, 90, canvasHeight+textSize+3);
+        pFive.text("B: "+birth, 180, canvasHeight+textSize+3);
         pFive.text("Life: "+lifetime, 270, canvasHeight+textSize+3);
       }
       

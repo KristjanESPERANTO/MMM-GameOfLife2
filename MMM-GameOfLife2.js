@@ -76,14 +76,26 @@ Module.register("MMM-GameOfLife2", {
 
       this.resetSketch();
     }
+    if (notification === "GOL_RESET_SB") {
+      if (payload.type === "Birth") {
+        this.config.birthNeighbors = "3";
+      }
+      else {
+        this.config.surviveNeighbors = "23";
+      }
+
+      this.resetSketch();
+    }
   },
 
   resetSketch: function() {
-    console.log(this.pfive);
     if (this.pfive !== null) {
-      this.pfive.remove();
-      let sketch = this.makeSketch(this.config);
-      this.pfive = new p5(sketch, "gameOfLife2Wrapper");
+      //this.pfive.remove();
+      //let sketch = this.makeSketch(this.config);
+      //this.pfive = new p5(sketch, "gameOfLife2Wrapper");
+      this.pfive.birth = this.config.birthNeighbors;
+      this.pfive.survive = this.config.surviveNeighbors;
+      this.pfive.lifetime = this.config.lifetime;
     }
   },
 

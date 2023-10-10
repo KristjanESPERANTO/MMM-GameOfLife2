@@ -80,12 +80,18 @@ Module.register("MMM-GameOfLife2", {
 
       this.updateSketch();
     }
-    if (notification === "GOL_RESET_SB") {
+    if (notification === "GOL_RESET_CONF") {
       if (payload.type === "Birth") {
         this.birth = this.config.birthNeighbors;
       }
-      else {
+      else if (payload.type === "Survive") {
         this.survive = this.config.surviveNeighbors;
+      }
+      else if (payload.type === "FPS") {
+        this.frameRate = this.config.desiredFrameRate;
+      }
+      else if (payload.type === "Life") {
+        this.lifetimeAmount = this.config.lifetime;
       }
 
       this.updateSketch();

@@ -45,7 +45,7 @@ Module.register("MMM-GameOfLife2", {
     if (notification === "DOM_OBJECTS_CREATED") {
       Log.info("DOM objects are created. Starting P5 …");
 
-      let sketch = this.makeSketch(this.config, this.lifetime, this.frameRate, this.survive, this.birth);
+      let sketch = this.makeSketch(this.config, this.lifetimeAmount, this.frameRate, this.survive, this.birth);
       this.pfive = new p5(sketch, "gameOfLife2Wrapper");
     }
     if (notification === "GOL_RESET") {
@@ -54,7 +54,7 @@ Module.register("MMM-GameOfLife2", {
     if (notification === "GOL_FPS") {
       this.frameRate += payload.amount;
 
-      this.resetSketch();
+      this.updateSketch();
     }
     if (notification === "GOL_LIFETIME") {
       this.lifetimeAmount += payload.amount;
@@ -68,7 +68,7 @@ Module.register("MMM-GameOfLife2", {
         this.survive = this.survive+payload.number;
       }
 
-      this.resetSketch();
+      this.updateSketch();
     }
     if (notification === "GOL_BIRTH") {
       if (this.birth.match(payload.number)) {
@@ -78,7 +78,7 @@ Module.register("MMM-GameOfLife2", {
         this.birth = this.birth+payload.number;
       }
 
-      this.resetSketch();
+      this.updateSketch();
     }
     if (notification === "GOL_RESET_SB") {
       if (payload.type === "Birth") {
@@ -88,15 +88,21 @@ Module.register("MMM-GameOfLife2", {
         this.survive = this.config.surviveNeighbors;
       }
 
-      this.resetSketch();
+      this.updateSketch();
     }
   },
 
   resetSketch: function() {
     if (this.pfive !== null) {
       this.pfive.remove();
-      let sketch = this.makeSketch(this.config, this.lifetime, this.frameRate, this.survive, this.birth);
+      let sketch = this.makeSketch(this.config, this.lifetimeAmount, this.frameRate, this.survive, this.birth);
       this.pfive = new p5(sketch, "gameOfLife2Wrapper");
+    }
+  },
+
+  updateSketch: function() {
+    if (this.pfive !== null) {
+      this.pfive.updateValues(this.lifetimeAmount, this.frameRate, this.survive, this.birth);
     }
   },
 
@@ -203,6 +209,14 @@ Module.register("MMM-GameOfLife2", {
           currentGenGrid = nextGenGrid;
         }
       };
+
+      pFive.updateValues = function(l,f,s,b) {
+        lifetime = l;
+        desiredFrameRate = f;
+        survive = s;
+        birth = b;
+        pFive.frameRate(desiredFrameRate);
+      }
 
 
       /*

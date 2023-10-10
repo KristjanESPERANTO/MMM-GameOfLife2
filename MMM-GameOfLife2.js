@@ -104,7 +104,7 @@ Module.register("MMM-GameOfLife2", {
     if (this.pfive !== null) {
       this.pfive.updateValues(this.lifetime, this.frameRate, this.survive, this.birth);
     }
-  }
+  },
 
 
   sanitizeConfig: function() {
@@ -216,7 +216,7 @@ Module.register("MMM-GameOfLife2", {
         survive = s;
         birth = b;
         pFive.frameRate(desiredFrameRate);
-      }
+      };
 
 
       /*

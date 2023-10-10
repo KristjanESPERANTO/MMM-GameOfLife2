@@ -54,7 +54,7 @@ Module.register("MMM-GameOfLife2", {
     if (notification === "GOL_FPS") {
       this.frameRate += payload.amount;
 
-      this.updateSketch();
+      this.resetSketch();
     }
     if (notification === "GOL_LIFETIME") {
       this.lifetimeAmount += payload.amount;
@@ -68,7 +68,7 @@ Module.register("MMM-GameOfLife2", {
         this.survive = this.survive+payload.number;
       }
 
-      this.updateSketch();
+      this.resetSketch();
     }
     if (notification === "GOL_BIRTH") {
       if (this.birth.match(payload.number)) {
@@ -78,7 +78,7 @@ Module.register("MMM-GameOfLife2", {
         this.birth = this.birth+payload.number;
       }
 
-      this.updateSketch();
+      this.resetSketch();
     }
     if (notification === "GOL_RESET_SB") {
       if (payload.type === "Birth") {
@@ -88,7 +88,7 @@ Module.register("MMM-GameOfLife2", {
         this.survive = this.config.surviveNeighbors;
       }
 
-      this.updateSketch();
+      this.resetSketch();
     }
   },
 
@@ -97,12 +97,6 @@ Module.register("MMM-GameOfLife2", {
       this.pfive.remove();
       let sketch = this.makeSketch(this.config, this.lifetime, this.frameRate, this.survive, this.birth);
       this.pfive = new p5(sketch, "gameOfLife2Wrapper");
-    }
-  },
-
-  updateSketch: function() {
-    if (this.pfive !== null) {
-      this.pfive.updateValues(this.lifetime, this.frameRate, this.survive, this.birth);
     }
   },
 
@@ -208,14 +202,6 @@ Module.register("MMM-GameOfLife2", {
           lastGenGrid = currentGenGrid;
           currentGenGrid = nextGenGrid;
         }
-      };
-
-      pFive.updateValues = function(l, f, s, b) {
-        lifetime = l;
-        desiredFrameRate = f;
-        survive = s;
-        birth = b;
-        pFive.frameRate(desiredFrameRate);
       };
 
 

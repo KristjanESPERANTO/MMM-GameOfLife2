@@ -280,7 +280,6 @@ Module.register("MMM-GameOfLife2", {
 
         if (grid[i][j] === lifetime) {
           pFive.fill(aliveColor);
-          pFive.stroke(aliveColor);
 
           let x = i * resolution;
           let y = j * resolution;
@@ -288,7 +287,6 @@ Module.register("MMM-GameOfLife2", {
         } else if (grid[i][j] > 0) {
           let color = pFive.color(aliveColorCode+componentToHex(pFive.floor(255/lifetime*grid[i][j])));
           pFive.fill(color);
-          pFive.stroke(color);
 
           let x = i * resolution;
           let y = j * resolution;

@@ -268,6 +268,7 @@ Module.register("MMM-GameOfLife2", {
 
       function drawValues() {
         pFive.fill("#ffffff");
+        pFive.stroke("#000000");
         pFive.textSize(textSize);
         pFive.text("FPS: "+desiredFrameRate, 0, canvasHeight+textSize+3);
         pFive.text("S: "+survive, 90, canvasHeight+textSize+3);
@@ -280,6 +281,7 @@ Module.register("MMM-GameOfLife2", {
 
         if (grid[i][j] === lifetime) {
           pFive.fill(aliveColor);
+          pFive.stroke(aliveColor);
 
           let x = i * resolution;
           let y = j * resolution;
@@ -287,6 +289,7 @@ Module.register("MMM-GameOfLife2", {
         } else if (grid[i][j] > 0) {
           let color = pFive.color(aliveColorCode+componentToHex(pFive.floor(255/lifetime*grid[i][j])));
           pFive.fill(color);
+          pFive.stroke(color);
 
           let x = i * resolution;
           let y = j * resolution;

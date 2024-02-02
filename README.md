@@ -36,7 +36,7 @@ The game will fill the playing grid with random living cells. Then it starts the
 Just clone the module into your MagicMirror’s modules folder and execute `npm install` in the module’s directory:
 
 ```bash
-git clone https://github.com/Entropy159/MMM-GameOfLife
+git clone https://github.com/Entropy159/MMM-GameOfLife2
 cd MMM-GameOfLife
 npm install
 ```
